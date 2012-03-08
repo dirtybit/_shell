@@ -13,8 +13,9 @@ struct list {
 };
 typedef struct list list;
 
-list * list_init() {
-	list * list_head = (list *) malloc(sizeof(list));
+list *list_init()
+{
+	list *list_head = (list *) malloc(sizeof(list));
 	list_head->begin = NULL;
 	list_head->end = NULL;
 	list_head->size = 0;
@@ -22,42 +23,38 @@ list * list_init() {
 	return list_head;
 }
 
-void list_add(list *lst, void *node_value) {
-	if(lst->end)
-	{
+void list_add(list *lst, void *node_value)
+{
+	if (lst->end) {
 		lst->end->next = (list_node *) malloc(sizeof(list_node));
 		lst->end = lst->end->next;
-	}
-	else
-	{
+	} else {
 		lst->end = (list_node *) malloc(sizeof(list_node));
 		lst->begin = lst->end;
 	}
-	
+
 	lst->end->value = node_value;
 	lst->end->next = NULL;
 	lst->size++;
 }
 
-void * list_get(list *lst, size_t index)
+void *list_get(list *lst, size_t index)
 {
 	list_node *node = NULL;
-	if(index < lst->size)
-	{
+	if (index < lst->size) {
 		node = lst->begin;
-		while(index)
+		while (index)
 			node = node->next;
 	}
-	
+
 	return node;
 }
 
 void list_empty(list *lst)
 {
 	list_node *node;
-	
-	while(lst->begin)
-	{
+
+	while (lst->begin) {
 		node = lst->begin;
 		lst->begin = lst->begin->next;
 		free(node);
